@@ -16,7 +16,7 @@ class EmailSender:
     def send_report(self, report_content):
         msg = MIMEMultipart()
         msg['From'] = self.user
-        msg['To'] = ", ".join(self.receivers)
+        msg['To'] = self.user  # 수신자 목록 숨김 (BCC 효과)
         from datetime import datetime, timedelta, timezone
         kst = timezone(timedelta(hours=9))
         now_date = datetime.now(kst).strftime('%Y-%m-%d')
