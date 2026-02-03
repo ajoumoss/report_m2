@@ -21,7 +21,7 @@ class EmailSender:
         kst = timezone(timedelta(hours=9))
         now_date = datetime.now(kst).strftime('%Y-%m-%d')
         
-        msg['Subject'] = f"[{now_date} {datetime.now(kst).strftime('%H:%M')}] 문체위 현안 심층 분석 보고서 (TOP 10)"
+        msg['Subject'] = f"[{now_date} {datetime.now(kst).strftime('%H:%M')}] 문체위 현안 심층 분석 보고서 (TOP 20)"
 
         # 마크다운을 HTML로 변환 (표 지원 및 개행 처리)
         html_report = markdown.markdown(report_content, extensions=['tables', 'nl2br'])
@@ -71,7 +71,7 @@ class EmailSender:
         </head>
         <body style="margin: 0; padding: 20px 10px; background-color: #f4f7f6; font-family: -apple-system, sans-serif;">
             <div class="container" style="max-width: 800px; margin: auto; background-color: #ffffff; padding: 40px; border-radius: 12px; text-align: left !important;">
-                <h1 style="color: #1a2a6c; text-align: center; margin-bottom: 40px;">문체위 현안 심층 분석 보고서 (TOP 10)</h1>
+                <h1 style="color: #1a2a6c; text-align: center; margin-bottom: 40px;">문체위 현안 심층 분석 보고서 (TOP 20)</h1>
                 <div class="report-body" style="text-align: left !important;">
                     {html_report}
                 </div>

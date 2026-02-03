@@ -53,7 +53,7 @@ class NewsCrawler:
         
         for cat, kws in categories.items():
             cat_items = []
-            display_count = 60
+            display_count = 80
             
             # 모든 카테고리에 대해 지난 168시간(7일) 필터링 적용 - 심층적인 맥락 파악을 위해 기간 연장
             hours_limit = 168
