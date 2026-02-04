@@ -23,6 +23,12 @@ def main():
         report_content = processor.generate_report(news_data)
 
         print("3. 이메일 발송 시작...")
+        
+        # 검증을 위해 로컬 파일로 저장
+        with open("latest_report.md", "w", encoding="utf-8") as f:
+            f.write(report_content)
+        print("✅ 최신 보고서가 'latest_report.md'로 저장되었습니다.")
+
         sender = EmailSender()
         if sender.send_report(report_content):
             print("전체 프로세스가 성공적으로 완료되었습니다.")
