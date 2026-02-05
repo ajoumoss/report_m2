@@ -55,8 +55,8 @@ class NewsCrawler:
             cat_items = []
             display_count = 80
             
-            # 모든 카테고리에 대해 지난 168시간(7일) 필터링 적용 - 심층적인 맥락 파악을 위해 기간 연장
-            hours_limit = 168
+            # 모든 카테고리에 대해 지난 72시간 필터링 적용 - 기존 168시간(7일)에서 72시간으로 변경
+            hours_limit = 72
             
             for kw in kws:
                 news_items = self.fetch_news(kw, display=display_count)

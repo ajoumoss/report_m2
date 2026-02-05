@@ -2,8 +2,8 @@ name: Daily Culture/Sports/Tourism Report
 
 on:
   schedule:
-    # 08:00 KST = 23:00 UTC (previous day)
-    - cron: '0 23 * * *'
+    # 06:00 KST = 21:00 UTC (previous day)
+    - cron: '0 21 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
