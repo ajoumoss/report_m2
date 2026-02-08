@@ -2,6 +2,7 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.header import Header
 from dotenv import load_dotenv
 import markdown
 
@@ -9,9 +10,9 @@ load_dotenv()
 
 class EmailSender:
     def __init__(self):
-        self.user = os.getenv("EMAIL_USER")
-        self.password = os.getenv("EMAIL_PASSWORD")
-        self.receivers = os.getenv("EMAIL_RECEIVERS").split(",")
+        self.user = os.getenv("EMAIL_USER").strip()
+        self.password = os.getenv("EMAIL_PASSWORD").strip()
+        self.receivers = [r.strip() for r in os.getenv("EMAIL_RECEIVERS").split(",")]
 
     def send_report(self, report_content):
         msg = MIMEMultipart()
@@ -21,7 +22,8 @@ class EmailSender:
         kst = timezone(timedelta(hours=9))
         now_date = datetime.now(kst).strftime('%Y-%m-%d')
         
-        msg['Subject'] = f"[{now_date} {datetime.now(kst).strftime('%H:%M')}] 문체위 현안 심층 분석 보고서 (TOP 20)"
+        subject_text = f"[{now_date} {datetime.now(kst).strftime('%H:%M')}] 문체위 현안 심층 분석 보고서 (TOP 20)"
+        msg['Subject'] = Header(subject_text, 'utf-8').encode()
 
         # 마크다운을 HTML로 변환 (표 지원 및 개행 처리)
         html_report = markdown.markdown(report_content, extensions=['tables', 'nl2br'])
@@ -84,7 +86,7 @@ class EmailSender:
         </html>
         """
         
-        msg.attach(MIMEText(html_body, 'html'))
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
         try:
             with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:

@@ -22,20 +22,9 @@ class NewsCrawler:
             "sort": "date"
         }
         
-        import time
-        time.sleep(0.1) # Rate limit avoidance
-        
         response = requests.get(self.base_url, headers=headers, params=params)
         if response.status_code == 200:
             return response.json().get("items", [])
-        elif response.status_code == 429:
-            print(f"Rate limit exceeded (429). Waiting 2 seconds...")
-            time.sleep(2)
-            # One retry attempt
-            response = requests.get(self.base_url, headers=headers, params=params)
-            if response.status_code == 200:
-                return response.json().get("items", [])
-            return []
         else:
             print(f"Error fetching news for {query}: {response.status_code}")
             return []
